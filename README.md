@@ -72,14 +72,20 @@ supabase/
 
 Errores siempre con la forma `{ "error": { "message": "...", "details": [...] } }`.
 
-## Pruebas en Postman
+## Pruebas
 
-Colección: [`postman/tasks-api.postman_collection.json`](./postman/tasks-api.postman_collection.json) (19 peticiones con tests).
+Colección de Postman: [`postman/tasks-api.postman_collection.json`](./postman/tasks-api.postman_collection.json) (19 peticiones con tests). Se ejecutó completa con **newman** (el runner de línea de comandos de Postman) y con **Swagger UI**.
 
-| Colección | Runner |
+### Colección ejecutada (newman): 19/19 ✅
+
+![Colección ejecutada con newman](./postman/capturas/06-newman-coleccion.png)
+
+### Flujo de autenticación en Swagger
+
+| 1. Documentación | 2. Sin token → `401` |
 |---|---|
-| ![Colección](./postman/capturas/01-coleccion.png) | ![Runner](./postman/capturas/02-runner.png) |
+| ![Swagger](./postman/capturas/01-swagger.png) | ![Sin token](./postman/capturas/02-sin-token-401.png) |
 
-| Sin token → 401 | Login → token | Con token → 200 |
+| 3. Login → token | 4. Authorize | 5. Con token → `200` |
 |---|---|---|
-| ![Sin token](./postman/capturas/03-sin-token.png) | ![Login](./postman/capturas/04-login.png) | ![Con token](./postman/capturas/05-con-token.png) |
+| ![Login](./postman/capturas/03-login-token.png) | ![Authorize](./postman/capturas/04-authorize.png) | ![Con token](./postman/capturas/05-con-token-200.png) |
