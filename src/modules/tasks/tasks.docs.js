@@ -1,4 +1,4 @@
-import { errorResponse, idParam, jsonBody, jsonResponse, toSchema } from '../../docs/helpers.js';
+import { errorResponse, idParam, jsonBody, jsonResponse, secure, toSchema } from '../../docs/helpers.js';
 import { createTaskSchema, taskSchema, updateTaskSchema } from './tasks.schema.js';
 
 const task = { $ref: '#/components/schemas/Task' };
@@ -10,7 +10,7 @@ export const tasksDocs = {
     CreateTask: toSchema(createTaskSchema),
     UpdateTask: { ...toSchema(updateTaskSchema), minProperties: 1 },
   },
-  paths: {
+  paths: secure({
     '/tasks': {
       get: {
         tags: ['Tasks'],
@@ -59,5 +59,5 @@ export const tasksDocs = {
         },
       },
     },
-  },
+  }),
 };

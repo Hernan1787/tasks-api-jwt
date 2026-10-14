@@ -1,8 +1,9 @@
+import { authDocs } from '../modules/auth/auth.docs.js';
 import { healthDocs } from '../modules/health/health.docs.js';
 import { tasksDocs } from '../modules/tasks/tasks.docs.js';
 
 // Cada módulo aporta sus tags, paths y schemas; aquí solo se juntan.
-const modules = [healthDocs, tasksDocs];
+const modules = [healthDocs, authDocs, tasksDocs];
 
 export function buildOpenApiSpec() {
   return {
@@ -16,6 +17,9 @@ export function buildOpenApiSpec() {
     tags: modules.flatMap((m) => m.tags),
     paths: Object.assign({}, ...modules.map((m) => m.paths)),
     components: {
+      securitySchemes: {
+        bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      },
       schemas: {
         Error: {
           type: 'object',

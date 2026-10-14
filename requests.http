@@ -33,3 +33,45 @@ Content-Type: application/json
 
 ### Eliminar
 DELETE {{base}}/tasks/1
+
+### Actualizar sin campos (400)
+PATCH {{base}}/tasks/1
+Content-Type: application/json
+
+{}
+
+### Id inválido (400)
+GET {{base}}/tasks/abc
+
+# ───────────── Paso 7: autenticación con JWT ─────────────
+# Desde aquí /tasks requiere token. Pegar el accessToken del login:
+@token = eyJhbGciOi...
+
+### Registrar usuario (201) — repetirlo da 409
+POST {{base}}/auth/register
+Content-Type: application/json
+
+{ "email": "ana@test.com", "password": "supersecreta" }
+
+### Login con contraseña incorrecta (401)
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "ana@test.com", "password": "incorrecta" }
+
+### Login (200) → copiar accessToken en @token
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{ "email": "ana@test.com", "password": "supersecreta" }
+
+### Usuario actual
+GET {{base}}/auth/me
+Authorization: Bearer {{token}}
+
+### Listar tareas (autenticado)
+GET {{base}}/tasks
+Authorization: Bearer {{token}}
+
+### Listar tareas sin token (401)
+GET {{base}}/tasks
