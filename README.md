@@ -71,3 +71,15 @@ supabase/
 🔒 = requiere `Authorization: Bearer <token>`; sin él la respuesta es `401`.
 
 Errores siempre con la forma `{ "error": { "message": "...", "details": [...] } }`.
+
+## Pruebas en Postman
+
+Colección: [`postman/tasks-api.postman_collection.json`](./postman/tasks-api.postman_collection.json) (19 peticiones con tests).
+
+| Colección | Runner |
+|---|---|
+| ![Colección](./postman/capturas/01-coleccion.png) | ![Runner](./postman/capturas/02-runner.png) |
+
+| Sin token → 401 | Login → token | Con token → 200 |
+|---|---|---|
+| ![Sin token](./postman/capturas/03-sin-token.png) | ![Login](./postman/capturas/04-login.png) | ![Con token](./postman/capturas/05-con-token.png) |
